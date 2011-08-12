@@ -56,7 +56,7 @@ function showJumpToAdminLinks(flaggedObject) {
 				// Admin will be retrieved via AJAX instead of an iframe so we can send POST data
 				var flagActionPostParameters = {
 					'action': flagActionAction, // Name of the registered action
-					'_selected_action': flaggedObjectDetails['pk'], // PK of the object on which to perform the action
+					'_selected_action': flaggedObjectDetails['pk'] // PK of the object on which to perform the action
 				}
 			}
 			flagActionURLParameters += 'height=400&width=800';
