@@ -75,21 +75,24 @@ class JumpToAdminFlag(template.Node):
             actions = [
                 {
                     'name': _(u'Change'),
+                    'perm': 'change',
                     'url': str('/admin/%s/%s/%s/' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)),
                     'action': '',
                     'requires_permission': 1,
                 },
                 {
                     'name': _(u'List'),
+                    'perm': 'list',
                     'url': str('/admin/%s/%s/' % (ct.app_label, ct.model)),
                     'action': '',
                     'requires_permission': 0,
                 },
                 {
                     'name': _('Delete'),
+                    'perm': 'delete',
                     'url': str('/admin/%s/%s/%s/delete/' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)),
                     'action': '',
-                    'requires_perimission': 1,
+                    'requires_permission': 1,
                 }
             ]
             
@@ -97,7 +100,8 @@ class JumpToAdminFlag(template.Node):
             
             for action in actions:
                 # Only display links for actions the user has permission to perform
-                if user.has_perm('%s.%s_%s' % (ct.app_label, action['name'], ct.model)) or not action['requires_permission']:
+                if user.has_perm('%s.%s_%s' % (ct.app_label, action['perm'],
+                    ct.model)) or not action['requires_permission']:
                     # User has this permission
                     actions_list.append(action)
                     
