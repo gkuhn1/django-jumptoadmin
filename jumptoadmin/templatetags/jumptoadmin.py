@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+
+from json import dumps
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import ugettext as _
 from django import template
 
 register = template.Library()
@@ -12,24 +16,21 @@ def render_jumptoadmin_flags(parser, token):
     """
     try:
         tag_name = token
-    
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires exactly zero arguments" % token.contents
-        
     return RenderJumpToAdminFlags()
-    
+
 class RenderJumpToAdminFlags(template.Node):
     def __init__(self):
         pass
-        
-    def render(self, context):
-        try:
-            # Get existing jumpflags from the root context
-            return '<script type="text/javascript">var jumpFlagList = %s</script>' % (context.__getitem__('jumpflags'))
 
-        except KeyError:
-            return '<!-- django-jumptoadmin: No Flags -->'
-        
+    def render(self, context):
+        if 'jumpflags' in context:
+            # Get existing jumpflags from the root context
+            return '<script type="text/javascript">var jumpFlagList = %s</script>' % (dumps(context.get('jumpflags')))
+        else:
+            return '<script type="text/javascript">var jumpFlagList = [];</script>'
+
 
 @register.tag(name="jumptoadmin_flag")
 def do_jumptoadmin_flag(parser, token):
@@ -73,19 +74,19 @@ class JumpToAdminFlag(template.Node):
             
             actions = [
                 {
-                    'name': 'change',
+                    'name': _(u'Change'),
                     'url': str('/admin/%s/%s/%s/' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)),
                     'action': '',
                     'requires_permission': 1,
                 },
                 {
-                    'name': 'list',
+                    'name': _(u'List'),
                     'url': str('/admin/%s/%s/' % (ct.app_label, ct.model)),
                     'action': '',
                     'requires_permission': 0,
                 },
                 {
-                    'name': 'delete',
+                    'name': _('Delete'),
                     'url': str('/admin/%s/%s/%s/delete/' % (ct.app_label, ct.model, self.jumptoadmin_object.pk)),
                     'action': '',
                     'requires_perimission': 1,
@@ -106,7 +107,7 @@ class JumpToAdminFlag(template.Node):
                 actions_list.extend(admin_actions)
             
             flagged_object_dict = {
-                'name': str(ct.model),
+                'name': unicode(ct.model_class()._meta.verbose_name),
                 'class': str(flagged_object_class),
                 'pk': self.jumptoadmin_object.pk,
                 'actions': actions_list,

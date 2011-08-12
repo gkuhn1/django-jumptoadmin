@@ -46,6 +46,7 @@ Installation
 #. Add the following to the TEMPLATE_CONTEXT_PROCESSORS list in your settings.py file to add a {{ JUMPTOADMIN_MEDIA_URL }} variable to the context of each template::
 
 	'jumptoadmin.context_processors.media',
+	'jumptoadmin.context_processors.flag',
 	
 	
 #. (Optionally) At the command line, create a symbolic link from your project's media folder to the media folder inside the jumptoadmin package::
@@ -67,6 +68,7 @@ Installation
 
 #. In your base.html template (or any specific template you'd like) add the following just before the </body> to insert a global Javascript variable named 'jumpFlagList' that contains all the information needed to render links for each item::
 
+	{% load jumptoadmin %} 
 	{% render_jumptoadmin_flags %}
 
 

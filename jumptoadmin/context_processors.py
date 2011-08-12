@@ -18,3 +18,9 @@ def media(request):
         JUMPTOADMIN_MEDIA_URL = '%sjumptoadmin/' % (MEDIA_URL)
 
     return {'JUMPTOADMIN_MEDIA_URL': JUMPTOADMIN_MEDIA_URL}
+
+def flag(request):
+    """
+    Returns the flag to context
+    """
+    return {'jumpflags': []}

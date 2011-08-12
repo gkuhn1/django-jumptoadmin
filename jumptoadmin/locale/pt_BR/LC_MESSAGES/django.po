@@ -1,0 +1,30 @@
+# Translation to Portuguese Brazil
+# Copyright (C) 20011
+# This file is distributed under the same license as the PACKAGE package.
+# Guilherme Kuhn, <g.kuhn0@gmail.com>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-08-12 10:29-0300\n"
+"PO-Revision-Date: 2011-08-12 10:29-0300\n"
+"Last-Translator: Guilherme Kuhn <g.kuhn0@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templatetags/jumptoadmin.py:75
+msgid "Change"
+msgstr "Modificar"
+
+#: templatetags/jumptoadmin.py:81
+msgid "List"
+msgstr "Lista"
+
+#: templatetags/jumptoadmin.py:87
+msgid "Delete"
+msgstr "Apagar"
